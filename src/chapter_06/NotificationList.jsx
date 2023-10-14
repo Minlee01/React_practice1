@@ -3,12 +3,15 @@ import Notification from "./notification";
 
 const reservedNotifications = [
     {
+        id: 1,
         message: "안녕하세요, 오늘 일정을 알려드립니다.",
     },
     {
+        id: 2,
         message: "점심식사 시간입니다.",
     },
     {
+        id: 3,
         message: "이제 곧 미팅이 시작됩니다.",
     },
 ];
@@ -34,6 +37,9 @@ class NotificationList extends React.Component{
                     notifications: notifications,
                 });
             } else {
+                this.setState({
+                    notifications: [],
+                });
                 clearInterval(Timer);
             }
         }, 1000);
@@ -43,7 +49,13 @@ class NotificationList extends React.Component{
         return (
             <div>
                 {this.state.notifications.map((notification) =>{
-                    return <Notification message={notification.message} />;
+                    return (
+                        <Notification 
+                            key={notification.id} //react element를 구분하기 위한 고유의 값, map함수 사용 시 필수
+                            id={notification.id}
+                            message={notification.message} 
+                        />
+                    );
                 })}
             </div>
         );
